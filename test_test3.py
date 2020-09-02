@@ -15,10 +15,10 @@ class TestTest3():
     self.driver = webdriver.Chrome()
     self.vars = {}
   
-  def teardown_method(self, method):
-    self.driver.quit()
+  # def teardown_method(self, method):
+  #   self.driver.quit()
   
-  def wait_for_window(self, timeout = 2):
+  def wait_for_window(self, timeout = 20):
     time.sleep(round(timeout / 1000))
     wh_now = self.driver.window_handles
     wh_then = self.vars["window_handles"]
@@ -30,7 +30,9 @@ class TestTest3():
     self.driver.set_window_size(1258, 614)
     self.driver.find_element(By.NAME, "search_term").click()
     self.driver.find_element(By.NAME, "search_term").send_keys("крісло карпове")
+    time.sleep(20)
     self.driver.find_element(By.CSS_SELECTOR, ".ps-search__buttonIcon--2FLNY").click()
+    time.sleep(20)
     self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.CSS_SELECTOR, ".x-gallery-tile:nth-child(2) .x-image-holder__img").click()
     self.vars["win7443"] = self.wait_for_window(2000)
