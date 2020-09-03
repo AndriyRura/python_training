@@ -22,8 +22,8 @@ class TestTest3():
     def test_test3(self):
         self.driver.get("https://prom.ua/")
         self.driver.set_window_size(1258, 614)
-        self.driver.find_element(By.NAME, "search_term").click().send_keys("крісло карпове")
-        # self.driver.find_element(By.NAME, "search_term").send_keys("крісло карпове")
+        self.driver.find_element(By.NAME, "search_term").click()
+        self.driver.find_element(By.NAME, "search_term").send_keys("крісло карпове")
         time.sleep(20)
         self.driver.find_element(By.CSS_SELECTOR, ".ps-search__buttonIcon--2FLNY").click()
         time.sleep(20)
