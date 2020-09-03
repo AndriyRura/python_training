@@ -4,11 +4,13 @@ import pytest
 from fixture.application import Application
 from models.group import Group
 
+
 @pytest.fixture
 def app(request):
     fixture = Application()
     request.addfinalizer(fixture.destroy)
     return fixture
+
 
 # class TestEmailtest():
 #     def setup_method(self, method):
@@ -20,13 +22,14 @@ def app(request):
 #         self.app.destroy()
 
 def test_emailtest(app):
-    app.login("testpython1111@gmail.com", "testpython")
+    app.session.login("testpython1111@gmail.com", "testpython")
     app.send_email(Group("Hello"))
-    app.logout()
+    app.session.logout()
     app.driver.close()
 
+
 def test_emailtest_2(app):
-    app.login("testpython1111@gmail.com", "testpython")
+    app.session.login("testpython1111@gmail.com", "testpython")
     app.send_email(Group("World"))
-    app.logout()
+    app.session.logout()
     app.driver.close()
