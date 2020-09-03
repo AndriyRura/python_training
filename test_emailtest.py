@@ -9,71 +9,73 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from group import Group
+
 
 class TestEmailtest():
-  def setup_method(self, method):
-    self.driver = webdriver.Chrome()
-    self.vars = {}
-  
-  def teardown_method(self, method):
-    self.driver.quit()
-  
-  def test_emailtest(self):
-    self.open_home_page()
-    self.login("testpython1111@gmail.com", "testpython")
-    time.sleep(2)
-    self.send_email("Hello")
-    time.sleep(2)
-    self.logout()
-    self.driver.close()
+    def setup_method(self, method):
+        self.driver = webdriver.Chrome()
+        self.vars = {}
 
-  def test_emailtest_2(self):
-    self.open_home_page()
-    self.login("testpython1111@gmail.com", "testpython")
-    time.sleep(2)
-    self.send_email("World")
-    time.sleep(2)
-    self.logout()
-    self.driver.close()
+    def teardown_method(self, method):
+        self.driver.quit()
 
-  def logout(self):
-    self.driver.find_element(By.CSS_SELECTOR, ".gb_La").click()
-    self.driver.find_element(By.ID, "gb_71").click()
-    time.sleep(2)
-    self.driver.find_element(By.CSS_SELECTOR, ".JDAKTe:nth-child(3) .BHzsHc").click()
-    self.driver.find_element(By.CSS_SELECTOR, ".n3x5Fb path").click()
-    time.sleep(2)
-    element = self.driver.find_element(By.CSS_SELECTOR, ".M9Bg4d .RveJvd")
-    actions = ActionChains(self.driver)
-    actions.move_to_element(element).perform()
+    def test_emailtest(self):
+        self.open_home_page()
+        self.login("testpython1111@gmail.com", "testpython")
+        time.sleep(2)
+        self.send_email(Group("Hello"))
+        time.sleep(2)
+        self.logout()
+        self.driver.close()
 
-  def send_email(self, title):
-    element = self.driver.find_element(By.LINK_TEXT, "Gmail")
-    actions = ActionChains(self.driver)
-    actions.move_to_element(element).perform()
-    time.sleep(2)
-    self.driver.find_element(By.LINK_TEXT, "Gmail").click()
-    self.driver.find_element(By.CSS_SELECTOR, ".T-I-KE").click()
-    time.sleep(3)
-    self.driver.find_element(By.NAME, "to").click()
-    time.sleep(2)
-    self.driver.find_element(By.NAME, "to").send_keys("ruratesting@gmail.com")
-    time.sleep(2)
-    self.driver.find_element(By.NAME, "subjectbox").send_keys(title)
-    time.sleep(2)
-    self.driver.find_element(By.XPATH,"/html/body/div[22]/div/div/div/div[1]/div[3]/div[1]/div[1]/div/div/div/div[3]/div/div/div[4]/table/tbody/tr/td[2]/table/tbody/tr[2]/td/div/div/div[4]/table/tbody/tr/td[1]/div/div[2]/div[1]").click()
-    time.sleep(2)
-    self.driver.find_element(By.LINK_TEXT, "Надіслані").click()
+    def test_emailtest_2(self):
+        self.open_home_page()
+        self.login("testpython1111@gmail.com", "testpython")
+        time.sleep(2)
+        self.send_email(Group("World"))
+        time.sleep(2)
+        self.logout()
+        self.driver.close()
 
-  def login(self, username, password):
-    self.driver.find_element(By.ID, "gb_70").click()
-    self.driver.find_element(By.ID, "identifierId").send_keys(username)
-    self.driver.find_element(By.CSS_SELECTOR, ".VfPpkd-RLmnJb").click()
-    time.sleep(3)
-    self.driver.find_element(By.NAME, "password").click()
-    self.driver.find_element(By.NAME, "password").send_keys(password)
-    self.driver.find_element(By.CSS_SELECTOR, ".VfPpkd-LgbsSe-OWXEXe-k8QpJ > .VfPpkd-RLmnJb").click()
+    def logout(self):
+        self.driver.find_element(By.CSS_SELECTOR, ".gb_La").click()
+        self.driver.find_element(By.ID, "gb_71").click()
+        time.sleep(2)
+        self.driver.find_element(By.CSS_SELECTOR, ".JDAKTe:nth-child(3) .BHzsHc").click()
+        self.driver.find_element(By.CSS_SELECTOR, ".n3x5Fb path").click()
+        time.sleep(2)
+        element = self.driver.find_element(By.CSS_SELECTOR, ".M9Bg4d .RveJvd")
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element).perform()
 
-  def open_home_page(self):
-    self.driver.get("https://www.google.com.ua/")
-  
+    def send_email(self, group):
+        element = self.driver.find_element(By.LINK_TEXT, "Gmail")
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element).perform()
+        time.sleep(2)
+        self.driver.find_element(By.LINK_TEXT, "Gmail").click()
+        self.driver.find_element(By.CSS_SELECTOR, ".T-I-KE").click()
+        time.sleep(3)
+        self.driver.find_element(By.NAME, "to").click()
+        time.sleep(2)
+        self.driver.find_element(By.NAME, "to").send_keys("ruratesting@gmail.com")
+        time.sleep(2)
+        self.driver.find_element(By.NAME, "subjectbox").send_keys(group.title)
+        time.sleep(2)
+        self.driver.find_element(By.XPATH,
+                                 "/html/body/div[22]/div/div/div/div[1]/div[3]/div[1]/div[1]/div/div/div/div[3]/div/div/div[4]/table/tbody/tr/td[2]/table/tbody/tr[2]/td/div/div/div[4]/table/tbody/tr/td[1]/div/div[2]/div[1]").click()
+        time.sleep(2)
+        self.driver.find_element(By.LINK_TEXT, "Надіслані").click()
+
+    def login(self, username, password):
+        self.driver.find_element(By.ID, "gb_70").click()
+        self.driver.find_element(By.ID, "identifierId").send_keys(username)
+        self.driver.find_element(By.CSS_SELECTOR, ".VfPpkd-RLmnJb").click()
+        time.sleep(3)
+        self.driver.find_element(By.NAME, "password").click()
+        self.driver.find_element(By.NAME, "password").send_keys(password)
+        self.driver.find_element(By.CSS_SELECTOR, ".VfPpkd-LgbsSe-OWXEXe-k8QpJ > .VfPpkd-RLmnJb").click()
+
+    def open_home_page(self):
+        self.driver.get("https://www.google.com.ua/")
