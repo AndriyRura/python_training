@@ -23,13 +23,13 @@ def app(request):
 
 def test_emailtest(app):
     app.session.login("testpython1111@gmail.com", "testpython")
-    app.send_email(Group("Hello"))
+    app.group.send_email(Group("Hello"))
     app.session.logout()
     app.driver.close()
 
 
 def test_emailtest_2(app):
     app.session.login("testpython1111@gmail.com", "testpython")
-    app.send_email(Group("World"))
+    app.group.send_email(Group("World"))
     app.session.logout()
     app.driver.close()
